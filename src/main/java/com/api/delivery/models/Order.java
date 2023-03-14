@@ -16,8 +16,11 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "tb_order")
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +30,8 @@ public class Order implements Serializable {
     private Instant moment;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
     @ManyToMany
+    @JoinTable(name = "tb_order_product", joinColumns = @JoinColumn(name ="order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<>();
 }
